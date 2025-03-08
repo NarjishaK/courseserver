@@ -1,5 +1,6 @@
 const MainCategory = require("../models/maincategory");
 const asyncHandler = require("express-async-handler");
+const subCategory =require("../models/subcategory")
 
 //create main category
 exports.create = asyncHandler(async (req, res) => {
@@ -60,6 +61,8 @@ exports.delete = asyncHandler(async (req, res) => {
         if (!maincategory) {
             return res.status(404).json({ message: "Main category not found" });
         }
+        //delete subcategory by maincategory id
+        await subCategory.deleteMany({ maincategory: id });
         res.status(200).json({ message: "Main category deleted successfully" });
     } catch (error) {
         console.error(error);
@@ -73,6 +76,7 @@ exports.delete = asyncHandler(async (req, res) => {
 exports.deleteAll = asyncHandler(async (req, res) => {
     try {
         await MainCategory.deleteMany({});
+        await subCategory.deleteMany({});
         res.status(200).json({ message: "All main category deleted successfully" });
     } catch (error) {
         console.error(error);
