@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Controller = require("../controller/maincategory");
+const Controller = require("../controller/subcategory");
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
     },
 });
 const upload = multer({ storage: storage });
-
 router.post("/", upload.single("image"), Controller.create);
 router.get("/", Controller.getAll);
 router.get("/:id", Controller.get);
