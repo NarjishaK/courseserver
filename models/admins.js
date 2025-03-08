@@ -16,7 +16,6 @@ const adminSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        required: true
     },
     phone: {
         type: String,
@@ -39,6 +38,9 @@ const adminSchema = new mongoose.Schema({
         type: Boolean,
         default: false  
     },
+
+    rating:{type:Number,default:0},
+    profession:String,
     facebook:String,
     twitter:String,
     instagram:String,
@@ -47,6 +49,14 @@ const adminSchema = new mongoose.Schema({
     username:String,
     skills:String,
     bio:String, 
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 adminSchema.pre("save", async function (next) {
