@@ -29,4 +29,17 @@ router.post(
 
 //get all course
 router.get('/',CourseController.getAll)
+//get by Id course
+router.get("/:id", CourseController.get);
+//update course by id
+router.put("/:id", upload.fields([
+    { name: "curriculamCoverImage", maxCount: 1 },
+    { name: "certificate", maxCount: 1 },
+    { name: "moduleImage", maxCount: 1 }, 
+]), CourseController.update);
+//delete course by id
+router.delete("/:id", CourseController.delete);
+//delete all course
+router.delete("/", CourseController.deleteAll);
+
 module.exports = router;
