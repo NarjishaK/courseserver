@@ -14,6 +14,7 @@ var subcategory = require('./routes/subcategory')
 var course = require('./routes/course')
 var coupon =require('./routes/coupon')
 var announcement =require("./routes/announcement")
+var quiz = require("./routes/quiz")
 connectDB()
 
 var app = express();
@@ -42,7 +43,7 @@ app.use('/subcategory', subcategory);
 app.use('/course', course);
 app.use('/coupon',coupon)
 app.use('/announcement',announcement)
-
+app.use('/quiz',quiz)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
