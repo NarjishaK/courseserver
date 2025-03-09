@@ -1,6 +1,7 @@
 const MainCategory = require("../models/maincategory");
 const asyncHandler = require("express-async-handler");
 const subCategory =require("../models/subcategory")
+const Course =require("../models/course")
 
 //create main category
 exports.create = asyncHandler(async (req, res) => {
@@ -63,7 +64,10 @@ exports.delete = asyncHandler(async (req, res) => {
         }
         //delete subcategory by maincategory id
         await subCategory.deleteMany({ maincategory: id });
-        res.status(200).json({ message: "Main category deleted successfully" });
+        res.status(200).json({ message: "Main categories and those subcategories deleted successfully" });
+        //delete product by maincategory id
+        await Course.deleteMany({ maincategory: id });
+        res.status(200).json({ message: "product of main category deleted successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });

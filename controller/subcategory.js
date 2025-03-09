@@ -1,5 +1,6 @@
 const Subcategory = require("../models/subcategory");
 const asyncHandler = require("express-async-handler");
+const Course =require("../models/course")
 
 //create subcategory
 exports.create = asyncHandler(async (req, res) => {
@@ -59,11 +60,19 @@ exports.update = asyncHandler(async (req, res) => {
 exports.delete = asyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
+        // Find and delete subcategory
         const subcategory = await Subcategory.findByIdAndDelete(id);
         if (!subcategory) {
             return res.status(404).json({ message: "Subcategory not found" });
         }
-        res.status(200).json({ message: "Subcategory deleted successfully" });
+
+        // Delete all courses associated with this subcategory
+        await Course.deleteMany({ subCategory: id });
+
+        res.status(200).json({ 
+            message: "Subcategory and its associated courses deleted successfully" 
+        });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
