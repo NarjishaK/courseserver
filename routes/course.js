@@ -1,0 +1,32 @@
+
+const express = require("express");
+const router = express.Router();
+const CourseController = require("../controller/course");
+const multer = require("multer");
+
+// Multer storage configuration
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "uploads");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+// Route to create a course with image uploads
+router.post(
+    "/",
+    upload.fields([
+        { name: "curriculamCoverImage", maxCount: 1 },
+        { name: "certificate", maxCount: 1 },
+        { name: "moduleImage", maxCount: 1 }, 
+    ]),
+    CourseController.create
+);
+
+//get all course
+router.get('/',CourseController.getAll)
+module.exports = router;

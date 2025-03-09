@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users');
 var admin = require('./routes/admins')
 var mainCategory = require('./routes/mainctaegory')
 var subcategory = require('./routes/subcategory')
+var course = require('./routes/course')
 connectDB()
 
 var app = express();
@@ -36,6 +37,7 @@ app.use('/users', usersRouter);
 app.use('/admin', admin);
 app.use('/maincategory', mainCategory);
 app.use('/subcategory', subcategory);
+app.use('/course', course);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
