@@ -12,7 +12,7 @@ exports.create = asyncHandler(async (req, res) => {
 
 //get all subcategory
 exports.getAll = asyncHandler(async (req, res) => {
-    const subcategory = await Subcategory.find();
+    const subcategory = await Subcategory.find().populate("maincategory");
     res.status(200).json(subcategory);
 });
 
@@ -20,7 +20,7 @@ exports.getAll = asyncHandler(async (req, res) => {
 exports.get = asyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-        const subcategory = await Subcategory.findById(id);
+        const subcategory = await Subcategory.findById(id).populate("maincategory");
         if (!subcategory) {
             return res.status(404).json({ message: "Subcategory not found" });
         }

@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
 //get all announcement
 exports.getAll = async (req, res) => {
     try {
-        const announcements = await Announcement.find();
+        const announcements = await Announcement.find().populate("instructor").populate("course");
         res.status(200).json(announcements);
     } catch (error) {
         console.error(error);
@@ -26,7 +26,7 @@ exports.getAll = async (req, res) => {
 exports.get = async (req, res) => {
     const { id } = req.params;
     try {
-        const announcement = await Announcement.findById(id);
+        const announcement = await Announcement.findById(id).populate("instructor").populate("course").populate("course");
         if (!announcement) {
             return res.status(404).json({ message: "Announcement not found" });
         }

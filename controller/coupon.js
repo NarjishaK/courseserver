@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
 //get all
 exports.getAll = async (req, res) => {
     try {
-        const coupons = await Coupon.find();
+        const coupons = await Coupon.find().populate("courses");
         res.status(200).json(coupons);
     } catch (error) {
         console.error(error);
@@ -25,7 +25,7 @@ exports.getAll = async (req, res) => {
 exports.get = async (req, res) => {
     const { id } = req.params;
     try {
-        const coupon = await Coupon.findById(id);
+        const coupon = await Coupon.findById(id).populate("courses");
         if (!coupon) {
             return res.status(404).json({ message: "Coupon not found" });
         }
