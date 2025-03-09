@@ -13,6 +13,7 @@ var mainCategory = require('./routes/mainctaegory')
 var subcategory = require('./routes/subcategory')
 var course = require('./routes/course')
 var coupon =require('./routes/coupon')
+var announcement =require("./routes/announcement")
 connectDB()
 
 var app = express();
@@ -40,6 +41,7 @@ app.use('/maincategory', mainCategory);
 app.use('/subcategory', subcategory);
 app.use('/course', course);
 app.use('/coupon',coupon)
+app.use('/announcement',announcement)
 
 
 // catch 404 and forward to error handler
