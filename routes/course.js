@@ -41,5 +41,11 @@ router.put("/:id", upload.fields([
 router.delete("/:id", CourseController.delete);
 //delete all course
 router.delete("/", CourseController.deleteAll);
+//add new modules for course
+router.put('/:id/modules',upload.single("moduleImage"),CourseController.addModules)
+//get modules by course id
+router.get('/:id/modules',CourseController.getModules)
+//edit module by id
+router.put('/:id/modules/:moduleId',upload.single("moduleImage"),CourseController.editModule)
 
 module.exports = router;
