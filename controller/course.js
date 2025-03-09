@@ -283,3 +283,42 @@ exports.editModule = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
+
+//delete  modules by Id
+exports.deleteModulebyId = async (req, res) => {
+    const { id, moduleId } = req.params;
+    try {
+        const course = await Course.findById(id);
+        if (!course) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+        const module = course.curriculamModules.id(moduleId);
+        if (!module) {
+            return res.status(404).json({ message: "Module not found" });
+        }
+        course.curriculamModules.pull(moduleId);
+        await course.save();
+        res.status(200).json({ message: "Module deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }   
+}
+
+//delete all modules by course id
+exports.deleteAllModules = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const course = await Course.findById(id);
+        if (!course) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+        course.curriculamModules = [];
+        await course.save();
+        res.status(200).json({ message: "All modules deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+}

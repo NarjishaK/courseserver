@@ -47,5 +47,9 @@ router.put('/:id/modules',upload.single("moduleImage"),CourseController.addModul
 router.get('/:id/modules',CourseController.getModules)
 //edit module by id
 router.put('/:id/modules/:moduleId',upload.single("moduleImage"),CourseController.editModule)
+//delete modules by id
+router.delete('/:id/module/:moduleId',CourseController.deleteModulebyId)
+//delete all modules by course id
+router.delete('/:id/modules',CourseController.deleteAllModules)
 
 module.exports = router;
