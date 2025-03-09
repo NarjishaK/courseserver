@@ -322,3 +322,25 @@ exports.deleteAllModules = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 }
+
+//course details by instructor id
+exports.getCoursesByInstructorId = async (req, res) => {
+    try {
+        const { instructorId } = req.params;
+
+        // Fetch courses where instructor matches the given ID
+        const courses = await Course.find({ instructor: instructorId })
+            .populate("mainCategory", "name") // Populating category names
+            .populate("subCategory", "name")
+            .populate("instructor", "name email"); // Populating instructor details
+
+        if (!courses || courses.length === 0) {
+            return res.status(404).json({ message: "No courses found for this instructor" });
+        }
+
+        res.status(200).json(courses);
+    } catch (error) {
+        console.error("Error fetching courses by instructor:", error);
+        res.status(500).json({ message: "Error fetching courses" });
+    }
+};

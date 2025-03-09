@@ -52,4 +52,7 @@ router.delete('/:id/module/:moduleId',CourseController.deleteModulebyId)
 //delete all modules by course id
 router.delete('/:id/modules',CourseController.deleteAllModules)
 
+//course details by instructor id
+router.get('/instructor/:instructorId',CourseController.getCoursesByInstructorId)
+
 module.exports = router;
